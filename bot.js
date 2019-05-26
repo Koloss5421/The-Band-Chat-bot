@@ -3,6 +3,7 @@ var logger = require('winston');
 var auth = require('./auth.json');
 
 var kolossID = "342162894873427979";
+var speakeasyID = "582145740705628170";
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -22,27 +23,30 @@ bot.on('ready', function (evt) {
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
-    if (userID == kolossID ) {
-      if (message.substring(0, 1) == '!') {
-          var args = message.substring(1).split(' ');
-          var cmd = args[0];
+    if (channelID == speakeasyID) {
+      if (userID == kolossID ) {
+        if (message.substring(0, 1) == '!') {
+            var args = message.substring(1).split(' ');
+            var cmd = args[0];
 
-          args = args.splice(1);
-          switch(cmd) {
-              // !ping
-              case 'ping':
-                  bot.sendMessage({
-                      to: channelID,
-                      message: 'Pong! [' + channelID + ']'
-                  });
-              break;
-              // Just add any case commands if you want to..
-           }
+            args = args.splice(1);
+            switch(cmd) {
+                // !ping
+                case 'ping':
+                    bot.sendMessage({
+                        to: channelID,
+                        message: 'Pong! [' + channelID + ']'
+                    });
+                break;
+                // Just add any case commands if you want to..
+             }
+         }
+       } else {
+         bot.sendMessage({
+             to: channelID,
+             message: "I'm sorry. You do not own this Speakeasy."
+         });
        }
-     } else {
-       bot.sendMessage({
-           to: channelID,
-           message: "I'm sorry. You do not own this Speakeasy."
-       });
+       logger.info('[' + user + '(' + userID + ')]' + ' attempted to use command"' + var cmd = args[0] + '" in channel: ' + channelID );
      }
 });
