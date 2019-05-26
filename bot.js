@@ -32,17 +32,10 @@ bot.on('ready', function (evt) {
     logger.info('Joining Speakeasy: ' + speakeasyID);
     bot.joinVoiceChannel(speakeasyID);
 
-    if (dispatcher == null) {
-      var voiceConnection = bot.voiceConnections.first();
+    var stream = ytdl('http://www.youtube.com/watch?v=A02s8omM_hI');
+    stream.on('done', function() {
 
-      if (voiceConnection) {
-        dispatcher = bot.voiceConnections.first().playStream(ytdl(defaultSongURL, {filter: 'audioonly'}), {seek: 0, volume: 1});
-
-        dispatcher.on('end', () => {
-          dispatcher = bot.voiceConnections.first().playStream(ytdl(defaultSongURL, {filter: 'audioonly'}), {seek: 0, volume: 1});
-        });
-      }
-    }
+    });
 
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
