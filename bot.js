@@ -11,7 +11,7 @@ var controlChannel = "582145740705628170";
 var presenceString = "Smooth Jazz";
 
 var dispatcher = null;
-var defaultSongURL = "https://www.youtube.com/watch?v=Evb31p5vFs4";
+var defaultSongURL = "http://www.youtube.com/watch?v=Evb31p5vFs4";
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -39,7 +39,7 @@ bot.on('ready', function (evt) {
         fs.createReadStream(ytdl(defaultSongURL).pipe(stream, {end: false}));
 
         stream.on('done', function() {
-          
+
         });
       });
     });
