@@ -1,0 +1,8 @@
+{
+  "name":"The Band",
+  "version":"1.0.0",
+  "description":"Plays music in Koko's Speakeasy",
+  "main":"bot.js",
+  "author":"Koloss5421",
+  "dependencies":{}
+}
