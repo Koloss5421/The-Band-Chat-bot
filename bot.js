@@ -32,6 +32,9 @@ bot.on('ready', function (evt) {
     bot.setPresence(presenceString);
     logger.info('Joining Speakeasy: ' + speakeasyID);
     bot.joinVoiceChannel(speakeasyID, function(error, events) {
+      if (error) {
+        logger.info('ERROR: ' + error);
+      }
       client.getAudioContext(speakeasyID, function(error, stream) {
         if (error) {
           logger.info('ERROR: ' + error);
