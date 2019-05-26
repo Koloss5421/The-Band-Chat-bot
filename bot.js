@@ -47,6 +47,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
              message: "I'm sorry. You do not own this Speakeasy."
          });
        }
-       logger.info('[' + user + '(' + userID + ')]' + ' attempted to use command"' + var cmd = args[0] + '" in channel: ' + channelID );
+       logger.info('[' + user + '(' + userID + ')]' + ' attempted to use command "' + args[0] + '" in channel: ' + channelID );
      }
 });
