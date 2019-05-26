@@ -2,6 +2,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var ytdl = require('ytdl-core');
+var fs = require('fs');
 
 
 var kolossID = "342162894873427979";
@@ -30,11 +31,17 @@ bot.on('ready', function (evt) {
     logger.info('Setting Presence: ' + presenceString);
     bot.setPresence(presenceString);
     logger.info('Joining Speakeasy: ' + speakeasyID);
-    bot.joinVoiceChannel(speakeasyID);
+    bot.joinVoiceChannel(speakeasyID, function(error, events) {
+      client.getAudioContext(speakeasyID, function(error, stream) {
+        if (error) {
+          logger.info('ERROR: ' + error);
+        }
+        fs.createReadStream(ytdl(defaultSongURL).pipe(stream, {end: false}));
 
-    var stream = ytdl('http://www.youtube.com/watch?v=A02s8omM_hI');
-    stream.on('done', function() {
-
+        stream.on('done', function() {
+          
+        });
+      });
     });
 
 });
