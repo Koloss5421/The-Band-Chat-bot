@@ -55,8 +55,11 @@ bot.on('message', function(message) {
                     addSong(args);
                     break;
                 case 'getband':
-                    joinVoiceChannel(message.member.voice.channel.id);
                     message.channel.send("Moving to channel: " + message.member.voice.channel.name);
+                    joinVoiceChannel(message.member.voice.channel.id);
+                    break;
+                default:
+                    message.channel.send("That command does not exist: " + message.content);
             }
         }
     }
@@ -81,7 +84,7 @@ function playSong(conn) {
     (async function() {
         try {
             dispatcher = voiceConn.play(ytdl(queue[0]), {
-                volume: 0.025
+                volume: 0.015
             });
 
             dispatcher.on('finish', function() {
