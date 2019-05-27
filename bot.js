@@ -67,20 +67,24 @@ function playSong() {
 
     // If there is an error, log it.
     if (error) {
-      logger.info('ERROR: ' + error);
+      logger.error('ERROR: ' + error);
     }
 
-
+    logger.info("Getting audio context from channelID: " + speakeasyID);
     bot.getAudioContext(speakeasyID, function(error, stream) {
       if (error) {
-        logger.info('ERROR: ' + error);
+        logger.error('ERROR: ' + error);
       }
 
       // Create the read stream - use YTDL to get the audio of the video and pipe it into a file called audio.flv for the read stream to read from
-      fs.createReadStream(ytdl(defaultSongURL, {filter: "audioonly"}).pipe(fs.createWriteStream('audio.flv'))).pipe(stream, {end: false});
+      logger.info("Attempting to create audio stream from video: " + defaultSongURL);
+      ytdl(defaultSongURL, {filter: "audioonly"}).pipe(fs.createWriteStream('audio.flv'));
+
+      logger.info("Attempting to read audio stream from audio.flv");
+      fs.createReadStream('audio.flv').pipe(stream, {end: false});
 
       stream.on('done', function() {
-
+        logger.info("Stream object reached a done state.");
       });
     });
   });
