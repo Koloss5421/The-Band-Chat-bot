@@ -27,8 +27,15 @@ bot.login(auth.token);
 
 bot.on('ready', function() {
     // When the bot is ready set things here
+
+    bot.voiceChannel.join(speakeasyID);
 });
 
 bot.on('message', function(message) {
+    // message.author = Client ID. The user's unique ID.
+    // message.channel = the channel ID. Unique ID for each channel.
+    // message.content = the actual content of the message.
     logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.content);
+
+
 })
