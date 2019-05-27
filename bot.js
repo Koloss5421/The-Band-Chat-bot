@@ -53,19 +53,23 @@ bot.on('message', function(message) {
                 case 'add':
                     message.channel.send('Adding Song: ' + args);
                     addSong(args);
+                    break;
+                case 'getband':
+                    joinVoiceChannel(message.author.voice.channel);
+                    message.channel.send("How's it going " + channel.name + "? I was summoned by: " + message.author.username);
             }
         }
     }
 });
 
-function joinVoiceChannel() {
-    let channel = bot.channels.get(speakeasyID);
-    if(voiceConn == null) {
-        logger.info("Attempting to join voice channel: " + speakeasyID);
-        channel.join().then(function(conn) {
-            playSong(conn);
-        });
+function joinVoiceChannel(channel) {
+    if (channel === null || channel === "") {
+        channel = bot.channels.get(speakeasyID);
     }
+    logger.info("Attempting to join voice channel: " + speakeasyID);
+    channel.join().then(function(conn) {
+        playSong(conn);
+    });
 }
 
 function playSong(conn) {
