@@ -78,8 +78,11 @@ function playSong() {
       }
 
       // Create the read stream - use YTDL to get the audio of the video and pipe it into a file called audio.flv for the read stream to read from
-      logger.info("Attempting to read audio stream from ytdl Stream");
-      fs.createReadStream(ytdl(defaultSongURL, {filter: "audioonly"}).pipe(fs.createWriteStream('audio.flv'))).pipe(stream, {end: false});
+      logger.info("Attempting to create stream from ytdl");
+      ytdl(defaultSongURL, {filter: "audioonly"}).pipe(fs.createWriteStream('audio.flv'));
+
+      logger.info("Attempting to read audio stream from audio.flv");
+      fs.createReadStream('audio.flv').pipe(stream, {end: false});
 
       stream.on('done', function() {
         logger.info("Stream object reached a done state.");
