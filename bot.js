@@ -12,7 +12,7 @@ var presenceString = "Smooth Jazz";
 
 let dispatcher = null;
 var defaultSongURL = "http://www.youtube.com/watch?v=Evb31p5vFs4";
-var queue = {};
+var queue = [];
 
 let voiceConn = null;
 
@@ -54,12 +54,12 @@ function playSong(conn) {
     if (voiceConn === null) {
         voiceConn = conn;
     }
-    if (queue.length = 0) {
+    if (queue.length === 0) {
         addSong(defaultSongURL);
     }
     (async function() {
         try {
-            dispatcher = voiceConn.play(ytdl(queue[queue.length].songURL), {
+            dispatcher = voiceConn.play(ytdl(queue[0]), {
                 volume: 0.025
             });
 
@@ -67,6 +67,7 @@ function playSong(conn) {
                 skipSong();
             });
         } catch(e) {
+            skipSong();
             logger.error("Error: " + e);
         }
     })();
@@ -75,13 +76,13 @@ function playSong(conn) {
 function addSong(url) {
     // TODO: Add song to queue
     // TODO: if current song is default, autoskip.
-    queue.push({
-        songURL: url
-    });
+    logger.info("Adding Song: " + queue[queue.length]);
+    queue.push(url);
 }
 
 function skipSong() {
     // TODO: skip current song and remove it from queue
-    queue.pop();
+    logger.info("Skipping song: " + queue[0]);
+    queue.shift();
     playSong();
 }
