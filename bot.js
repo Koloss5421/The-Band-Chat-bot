@@ -56,7 +56,7 @@ function playSong(conn) {
     (async function() {
         try {
             dispatcher = conn.play(ytdl(defaultSongURL), {
-                volume: 0.5
+                volume: 0.1
             });
         } catch(e) {
             logger.error("Error: " + e);
