@@ -51,13 +51,15 @@ function joinVoiceChannel() {
 
 function playSong() {
     // TODO: Play some fucking music.
-    try {
-        dispatcher = voiceConn.play(ytdl(defaultSongURL), {
-            volume: 0.5
-        });
-    } catch(e) {
-        logger.error(e);
-    }
+    (async function() {
+        try {
+            dispatcher = voiceConn.play(ytdl(defaultSongURL), {
+                volume: 0.5
+            });
+        } catch(e) {
+            logger.error("Error: " + e);
+        }
+    })();
 }
 
 function addSong() {
