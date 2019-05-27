@@ -1,4 +1,4 @@
-var Discord = require('discord.io');
+var Discord = require('discord.js');
 var logger = require('winston');
 var auth = require('./auth.json');
 var ytdl = require('ytdl-core');
@@ -21,72 +21,15 @@ logger.add(new logger.transports.Console, {
 });
 logger.level = 'debug';
 
+bot.login(auth.token);
+
 // Initialize Discord Bot
-var bot = new Discord.Client({
-   token: auth.token,
-   autorun: true
+var bot = new Discord.Client();
+
+bot.on('ready', function() {
+    // When the bot is ready set things here
 });
 
-bot.on('ready', function (evt) {
-    logger.info('Connected');
-    logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
-    logger.info('Setting Presence: ' + presenceString);
-    bot.setPresence(presenceString);
-    playSong();
-});
-
-bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-        if (message.substring(0, 1) == '!') {
-            // Only accept commands from the control server
-            if (channelID == controlChannel) {
-            var args = message.substring(1).split(' ');
-            var cmd = args[0];
-
-            args = args.splice(1);
-            switch(cmd) {
-                // !ping
-                case 'ping':
-                    bot.sendMessage({
-                        to: channelID,
-                        message: 'Pong! [' + channelID + ']'
-                    });
-                break;
-                // Just add any case commands if you want to..
-             }
-         }
-     }
-});
-
-function playSong() {
-  // Join the speakeasyChannel
-  logger.info('Joining Speakeasy: ' + speakeasyID);
-  bot.joinVoiceChannel(speakeasyID, function(error) {
-    // If there is an error, log it.
-    if (error) {
-      return logger.error('ERROR: ' + error);
-    }
-
-    //logger.info("[Event Logging]: " + events);
-
-    logger.info("Getting audio context from channelID: " + speakeasyID);
-    bot.getAudioContext(speakeasyID, function(error, stream) {
-      if (error) {
-      return logger.error('ERROR: ' + error);
-      }
-
-      // Create the read stream - use YTDL to get the audio of the video and pipe it into a file called audio.flv for the read stream to read from
-      logger.info("Attempting to create stream from ytdl");
-      ytdl(defaultSongURL, {filter: "audioonly"}).pipe(fs.createWriteStream('audio.flv'));
-
-      logger.info("Attempting to read audio stream from audio.flv");
-      fs.createReadStream('audio.flv').pipe(stream, {end: false});
-
-      stream.on('done', function() {
-        logger.info("Stream object reached a done state.");
-      });
-    });
-  });
-}
+bot.on('message', function(mess) {
+    // When the bot sees a message in the server do things
+})

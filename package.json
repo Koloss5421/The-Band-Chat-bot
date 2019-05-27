@@ -1,8 +1,13 @@
 {
-  "name":"The Band",
-  "version":"1.0.0",
-  "description":"Plays music in Koko's Speakeasy",
-  "main":"bot.js",
-  "author":"Koloss5421",
-  "dependencies":{}
+    "name":"The Band",
+    "version":"1.0.0",
+    "description":"Plays music in Koko's Speakeasy",
+    "main":"bot.js",
+    "author":"Koloss5421",
+    "dependencies":{
+        "discordjs/discord.js": "~11.5.0",
+        "node-opus": "~0.3.1",
+        "winston": "~3.2.1",
+        "ytdl-core": "~0.29.2"
+    }
 }
