@@ -55,7 +55,6 @@ function joinVoiceChannel() {
 function playSong() {
     // TODO: Play some fucking music.
 
-    if
     (async function() {
         try {
             dispatcher = voiceConn.play(ytdl(defaultSongURL), {
