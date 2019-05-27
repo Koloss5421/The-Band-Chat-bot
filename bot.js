@@ -70,12 +70,14 @@ function playSong() {
       logger.info('ERROR: ' + error);
     }
 
+
     bot.getAudioContext(speakeasyID, function(error, stream) {
       if (error) {
         logger.info('ERROR: ' + error);
       }
 
-      fs.createReadStream(ytdl(defaultSongURL, {filter: "audioonly"}).pipe(stream, {end: false}));
+      // Create the read stream - use YTDL to get the audio of the video and pipe it into a file called audio.flv for the read stream to read from
+      fs.createReadStream(ytdl(defaultSongURL, {filter: "audioonly"}).pipe(fs.createWriteStream('audio.flv'))).pipe(stream, {end: false});
 
       stream.on('done', function() {
 
