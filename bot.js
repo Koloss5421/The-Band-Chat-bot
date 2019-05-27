@@ -56,7 +56,7 @@ bot.on('message', function(message) {
                     break;
                 case 'getband':
                     joinVoiceChannel(message.member.voice.channel.id);
-                    message.channel.send("How's it going " + channel.name + "? I was summoned by: " + message.author.username);
+                    message.channel.send("How's it going " + message.channel.name + "? I was summoned by: " + message.author.username);
             }
         }
     }
