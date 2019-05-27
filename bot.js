@@ -21,10 +21,9 @@ logger.add(new logger.transports.Console, {
 });
 logger.level = 'debug';
 
-bot.login(auth.token);
-
 // Initialize Discord Bot
 var bot = new Discord.Client();
+bot.login(auth.token);
 
 bot.on('ready', function() {
     // When the bot is ready set things here
