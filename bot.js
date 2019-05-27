@@ -30,5 +30,5 @@ bot.on('ready', function() {
 });
 
 bot.on('message', function(message) {
-    logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.conent);
+    logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.content);
 })
