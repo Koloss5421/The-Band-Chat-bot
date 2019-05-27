@@ -12,6 +12,7 @@ var presenceString = "Smooth Jazz";
 
 var dispatcher = null;
 var defaultSongURL = "http://www.youtube.com/watch?v=Evb31p5vFs4";
+var queue = {};
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -19,35 +20,22 @@ logger.add(new logger.transports.Console, {
     colorize: true
 });
 logger.level = 'debug';
+
 // Initialize Discord Bot
 var bot = new Discord.Client({
    token: auth.token,
    autorun: true
 });
+
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
     logger.info('Setting Presence: ' + presenceString);
     bot.setPresence(presenceString);
-    logger.info('Joining Speakeasy: ' + speakeasyID);
-    bot.joinVoiceChannel(speakeasyID, function(error, events) {
-      if (error) {
-        logger.info('ERROR: ' + error);
-      }
-      client.getAudioContext(speakeasyID, function(error, stream) {
-        if (error) {
-          logger.info('ERROR: ' + error);
-        }
-        fs.createReadStream(ytdl(defaultSongURL).pipe(stream, {end: false}));
-
-        stream.on('done', function() {
-
-        });
-      });
-    });
-
+    playSong();
 });
+
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
@@ -71,3 +59,27 @@ bot.on('message', function (user, userID, channelID, message, evt) {
          }
      }
 });
+
+function playSong() {
+  // Join the speakeasyChannel
+  logger.info('Joining Speakeasy: ' + speakeasyID);
+  bot.joinVoiceChannel(speakeasyID, function(error, events) {
+
+    // If there is an error, log it.
+    if (error) {
+      logger.info('ERROR: ' + error);
+    }
+
+    bot.getAudioContext(speakeasyID, function(error, stream) {
+      if (error) {
+        logger.info('ERROR: ' + error);
+      }
+
+      fs.createReadStream(ytdl(defaultSongURL, {filter: "audioonly"}).pipe(stream, {end: false}));
+
+      stream.on('done', function() {
+
+      });
+    });
+  });
+}
