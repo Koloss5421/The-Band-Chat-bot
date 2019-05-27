@@ -43,16 +43,19 @@ function joinVoiceChannel() {
     let channel = bot.channels.get(speakeasyID);
     if(voiceConn == null) {
         logger.info("Attempting to join voice channel: " + speakeasyID);
-        voiceConn = channel.join();
-        playSong();
+        channel.join().then(function(conn) {
+            voiceConn = conn;
+        });
     }
 
+    playSong();
 
 }
 
 function playSong() {
     // TODO: Play some fucking music.
 
+    if
     (async function() {
         try {
             dispatcher = voiceConn.play(ytdl(defaultSongURL), {
