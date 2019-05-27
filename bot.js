@@ -64,11 +64,12 @@ function playSong() {
   // Join the speakeasyChannel
   logger.info('Joining Speakeasy: ' + speakeasyID);
   bot.joinVoiceChannel(speakeasyID, function(error, events) {
-
     // If there is an error, log it.
     if (error) {
       logger.error('ERROR: ' + error);
     }
+
+    logger.info("[Event Logging]: " + events);
 
     logger.info("Getting audio context from channelID: " + speakeasyID);
     bot.getAudioContext(speakeasyID, function(error, stream) {
