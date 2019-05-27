@@ -14,6 +14,8 @@ var dispatcher = null;
 var defaultSongURL = "http://www.youtube.com/watch?v=Evb31p5vFs4";
 var queue = {};
 
+var voiceConn = null;
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -27,8 +29,7 @@ bot.login(auth.token);
 
 bot.on('ready', function() {
     // When the bot is ready set things here
-
-    bot.voiceChannel.join(speakeasyID);
+    joinVoiceChannel();
 });
 
 bot.on('message', function(message) {
@@ -36,6 +37,12 @@ bot.on('message', function(message) {
     // message.channel = the channel ID. Unique ID for each channel.
     // message.content = the actual content of the message.
     logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.content);
+});
 
-
-})
+function joinVoiceChannel() {
+    let channel = bot.channels.get(speakeasyID);
+    if(voiceConn == null) {
+        logger.info("Attempting to join voice channel: " + speakeasyID);
+        voiceConn = channel.join();
+    }
+}
