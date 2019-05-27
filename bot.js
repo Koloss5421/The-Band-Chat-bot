@@ -29,6 +29,6 @@ bot.on('ready', function() {
     // When the bot is ready set things here
 });
 
-bot.on('message', function(mess) {
+bot.on('message', function(message) {
     logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.conent);
 })
