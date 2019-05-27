@@ -66,7 +66,7 @@ function playSong() {
   bot.joinVoiceChannel(speakeasyID, function(error, events) {
     // If there is an error, log it.
     if (error) {
-      logger.error('ERROR: ' + error);
+      return logger.error('ERROR: ' + error);
     }
 
     logger.info("[Event Logging]: " + events);
@@ -74,7 +74,7 @@ function playSong() {
     logger.info("Getting audio context from channelID: " + speakeasyID);
     bot.getAudioContext(speakeasyID, function(error, stream) {
       if (error) {
-        logger.error('ERROR: ' + error);
+      return logger.error('ERROR: ' + error);
       }
 
       // Create the read stream - use YTDL to get the audio of the video and pipe it into a file called audio.flv for the read stream to read from
