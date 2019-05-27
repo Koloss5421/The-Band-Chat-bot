@@ -30,5 +30,5 @@ bot.on('ready', function() {
 });
 
 bot.on('message', function(mess) {
-    // When the bot sees a message in the server do things
+    logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.conent);
 })
