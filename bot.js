@@ -10,11 +10,11 @@ var speakeasyID = "582080751542075393";
 var controlChannel = "582145740705628170";
 var presenceString = "Smooth Jazz";
 
-var dispatcher = null;
+let dispatcher = null;
 var defaultSongURL = "http://www.youtube.com/watch?v=Evb31p5vFs4";
 var queue = {};
 
-var voiceConn = null;
+let voiceConn = null;
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
