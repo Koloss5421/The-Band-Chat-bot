@@ -38,29 +38,37 @@ bot.on('message', function(message) {
     // message.content = the actual content of the message.
     logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.content);
 
-    if(message.channel == controlChannel) {
-        if(message.content.substring(0, 1) === "!") {
-            let args = message.content.substring(1).split(' ');
-            let cmd = args[0];
+    if(message.content.substring(0, 1) === "~" && message.author != "582087330379333633") {
+        let args = message.content.substring(1).split(' ');
+        let cmd = args[0];
 
-            args = args.splice(1);
-            switch (cmd) {
-                // SkipSong Command
-                case 'skip':
-                    message.channel.send('Skipping current song: ' + queue[0]);
-                    skipSong();
-                    break;
-                case 'add':
-                    message.channel.send('Adding Song: ' + args);
-                    addSong(args);
-                    break;
-                case 'getband':
-                    message.channel.send("Moving to channel: " + message.member.voice.channel.name);
-                    joinVoiceChannel(message.member.voice.channel.id);
-                    break;
-                default:
-                    message.channel.send("That command does not exist: " + message.content);
-            }
+        args = args.splice(1);
+        switch (cmd) {
+            // SkipSong Command
+            case 'skip':
+                message.channel.send('Skipping current song: ' + queue[0]);
+                skipSong();
+                break;
+            case 'add':
+                message.channel.send('Adding Song: ' + args);
+                addSong(args);
+                break;
+            case 'getband':
+                message.channel.send("Moving to channel: " + message.member.voice.channel.name);
+                joinVoiceChannel(message.member.voice.channel.id);
+                break;
+            case 'gohome':
+                message.channel.send("Returning to the speakeasy...");
+                joinVoiceChannel();
+            case 'help':
+                message.channel.send("The band is pretty simple. We play youtube videos.");
+                message.channel.send("=====       Commands:       =====");
+                message.channel.send("~add [url]    - Add a song to the playlist. Ex. !add http://www.youtube.com/watch?v=Evb31p5vFs4");
+                message.channel.send("~skip         - Skip the current playing song - or use to get the bot going again.");
+                message.channel.send("~getband      - Call the band to your current voice channel. All you have to do is be in there.");
+                message.channel.send("~gohome       - We get the message. We simply go back to the speakeasy for all to hear when the chats are packed.");
+            default:
+                message.channel.send("That command does not exist: " + message.content);
         }
     }
 });
