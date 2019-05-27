@@ -45,4 +45,22 @@ function joinVoiceChannel() {
         logger.info("Attempting to join voice channel: " + speakeasyID);
         voiceConn = channel.join();
     }
+
+    playSong();
+}
+
+function playSong() {
+    // TODO: Play some fucking music.
+    dispatcher = voiceConn.play(ytdl(defaultSongURL), {
+        volume: 0.5
+    });
+}
+
+function addSong() {
+    // TODO: Add song to queue
+    // TODO: if current song is default, autoskip.
+}
+
+function skipSong() {
+    // TODO: skip current song and remove it from queue
 }
