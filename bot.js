@@ -37,6 +37,25 @@ bot.on('message', function(message) {
     // message.channel = the channel ID. Unique ID for each channel.
     // message.content = the actual content of the message.
     logger.info("Message Captured: [" + message.author + "] [" + message.client + "] (" + message.channel + "): " + message.content);
+
+    if(message.channel == controlChannel) {
+        if(message.content.substring(0, 1) === "!") {
+            let args = message.content.substring(1).split(' ');
+            let cmd = args[0];
+
+            args = args.splice(1);
+            switch (cmd) {
+                // SkipSong Command
+                case 'skip':
+                    message.channel.send('Skipping current song: ' + queue[0]);
+                    skipSong();
+                    break;
+                case 'add':
+                    message.channel.send('Adding Song: ' + args);
+                    addSong(args);
+            }
+        }
+    }
 });
 
 function joinVoiceChannel() {
