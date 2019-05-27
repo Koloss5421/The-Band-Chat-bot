@@ -62,10 +62,8 @@ bot.on('message', function(message) {
     }
 });
 
-function joinVoiceChannel(channel) {
-    if (channel === null || channel === "") {
-        channel = bot.channels.get(speakeasyID);
-    }
+function joinVoiceChannel(channelID = speakeasyID) {
+    let channel = bot.channels.get(channelID)
     logger.info("Attempting to join voice channel: " + speakeasyID);
     channel.join().then(function(conn) {
         playSong(conn);
