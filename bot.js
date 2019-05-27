@@ -54,11 +54,17 @@ function playSong(conn) {
     if (voiceConn === null) {
         voiceConn = conn;
     }
-    
+    if (queue.length = 0) {
+        addSong(defaultSongURL);
+    }
     (async function() {
         try {
-            dispatcher = voiceConn.play(ytdl(defaultSongURL), {
+            dispatcher = voiceConn.play(ytdl(queue[queue.length].songURL), {
                 volume: 0.025
+            });
+
+            dispatcher.on('finish', function() {
+                skipSong();
             });
         } catch(e) {
             logger.error("Error: " + e);
@@ -66,11 +72,16 @@ function playSong(conn) {
     })();
 }
 
-function addSong() {
+function addSong(url) {
     // TODO: Add song to queue
     // TODO: if current song is default, autoskip.
+    queue.unshift({
+        songURL: url
+    });
 }
 
 function skipSong() {
     // TODO: skip current song and remove it from queue
+    queue.pop();
+    playSong();
 }
