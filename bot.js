@@ -55,7 +55,7 @@ bot.on('message', function(message) {
                     addSong(args);
                     break;
                 case 'getband':
-                    joinVoiceChannel(message.member.voice.channel);
+                    joinVoiceChannel(message.member.voice.channel.id);
                     message.channel.send("How's it going " + channel.name + "? I was summoned by: " + message.author.username);
             }
         }
@@ -64,7 +64,7 @@ bot.on('message', function(message) {
 
 function joinVoiceChannel(channelID = speakeasyID) {
     let channel = bot.channels.get(channelID)
-    logger.info("Attempting to join voice channel: " + speakeasyID);
+    logger.info("Attempting to join voice channel: " + channelID);
     channel.join().then(function(conn) {
         playSong(conn);
     });
