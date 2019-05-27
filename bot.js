@@ -75,7 +75,7 @@ function playSong(conn) {
 function addSong(url) {
     // TODO: Add song to queue
     // TODO: if current song is default, autoskip.
-    queue.unshift({
+    queue.push({
         songURL: url
     });
 }
