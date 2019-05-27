@@ -64,10 +64,10 @@ bot.on('message', function(message) {
             case 'help':
                 message.channel.send(`
                 The band is pretty simple. We play youtube videos.
-                =====       Commands:       =====");
+                =====       Commands:       =====
                 ~add [url]    - Add a song to the playlist. Ex. ~add hxxp://www.youtube.com/watch?v=Evb31p5vFs4
-                ~skip         - Skip the current playing song - or use to get the bot going again.");
-                ~getband      - Call the band to your current voice channel. All you have to do is be in there.");
+                ~skip         - Skip the current playing song - or use to get the bot going again.
+                ~getband      - Call the band to your current voice channel. All you have to do is be in there.
                 ~gohome       - We get the message. We simply go back to the speakeasy for all to hear when the chats are packed.`);
                 break;
             default:
@@ -86,7 +86,6 @@ function joinVoiceChannel(channelID = speakeasyID) {
 }
 
 function playSong(conn) {
-    // TODO: Play some fucking music.
     if (voiceConn === null) {
         voiceConn = conn;
     }
@@ -110,14 +109,11 @@ function playSong(conn) {
 }
 
 function addSong(url) {
-    // TODO: Add song to queue
-    // TODO: if current song is default, autoskip.
     logger.info("Adding Song: " + queue[queue.length]);
     queue.push("" + url);
 }
 
 function skipSong() {
-    // TODO: skip current song and remove it from queue
     logger.info("Skipping song: " + queue[0]);
     queue.shift();
     playSong();
