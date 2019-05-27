@@ -96,7 +96,7 @@ function addSong(url) {
     // TODO: Add song to queue
     // TODO: if current song is default, autoskip.
     logger.info("Adding Song: " + queue[queue.length]);
-    queue.push(url);
+    queue.push("" + url);
 }
 
 function skipSong() {
